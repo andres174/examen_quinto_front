@@ -1,0 +1,80 @@
+<div class="card bg-info text-white" style="border-radius: 1rem; width: 50rem;">
+ 
+    <form [formGroup]="_form" >
+  
+      <div class="card-body p-8 text-center">
+  
+        <div class="mb-md-5 mt-md-4 pb-4">
+  
+          <h2 class="fw-bold mb-2 text-uppercase mb-4">Registro de animales</h2>
+          <div class="form-outline form-white mb-4 mt-5">
+            <label class="form-label" for="typeEmailX">Nombre</label>
+            <input type="text" id="typeEmailX" class="form-control form-control-lg" formControlName="nombre" />
+            
+          </div>
+  
+          <div class="form-outline form-white mb-4">
+            <label class="form-label" for="typeEmailX">Seleccionar tipo de animal</label>
+            <select class="form-select" aria-label="Default select example" formControlName="tipo_id">
+              <option *ngFor="let item of tipo" value="{{item.id}}"> {{item.tipo_animal}} </option>
+            </select>
+          </div>
+
+          <div class="form-outline form-white mb-4">
+            <label class="form-label" for="typeEmailX">Imagen</label>
+            <input type="file" id="typeEmailX" class="form-control form-control-lg" formControlName="imagen" />
+            
+          </div>
+          <div *ngIf="button==true">
+            <button class="btn btn-outline-light btn-lg px-5" type="registrar" (click)="registro(_form.value)">Guardar</button>
+          </div>
+          <div *ngIf="button==false">
+            <button class="btn btn-outline-light btn-lg px-5" type="registrar" (click)="update(_form.value)">Actualizar</button>
+          </div >
+          
+        </div>
+      </div>
+    </form>
+
+    <div class="">
+
+        <button class="btn btn-outline-light btn-lg px-5" type="registrar" (click)="reporte()">Generar reporte</button>
+    </div>
+    <table class="table-primary m-5">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">ID</th>
+          <th scope="col">Nombre del Animal</th>
+          <th scope="col">Tipo de Animal</th>
+          <th scope="col">Imagen</th>
+          <th scope="col">Acciones</th>
+   
+        </tr>
+      </thead>
+      <tbody >
+        <tr *ngFor="let item of animals">
+          <td>{{item.id}}</td>
+          <td>{{item.nombre}}</td>
+          <td  ><div  *ngFor="let e of tipo"><b *ngIf="item.tipo_id==e.id">{{e.tipo_animal}}</b></div></td>
+          <td><img  class="image" width="50" height="50" src="http://127.0.0.1:8000/public/storage/animal/{{item.imagen}}" alt="{{item.logo}}"></td>
+
+
+          
+          <!-- <td>{{item.logo}}</td> -->
+          <td >
+            <div class="g-2">
+              <button class="btn text-primary btn-sm" (click)="edit(item.id)"> <i class="fa-solid fa-pen-to-square"></i> </button>
+               <button class="btn text-danger btn-sm" (click)="destroy(item.id)"> <i class="fa-solid fa-trash"></i></button>
+            </div>
+            </td>
+  
+        </tr>
+       
+      </tbody>
+      
+    </table>
+    <span class="m-4">Si la imagen no carga, revise su conexión a internet</span>
+  
+  </div>
+  
+  
